@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import y.semina.config.SecurityConfig;
 import y.semina.service.ProductService;
 
 import java.math.BigDecimal;
@@ -22,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductController.class)
+@Import(SecurityConfig.class)
 class ProductControllerTest {
 
     @Autowired
@@ -31,6 +36,7 @@ class ProductControllerTest {
     private ProductService productService;
 
     @Test
+    @WithAnonymousUser
     @DisplayName("GET /api/products - успешное получение всех продуктов")
     void getAllProducts_Success() throws Exception {
         String responseJson = """
@@ -56,6 +62,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("GET /api/products/{id} - успешное получение продукта по ID")
     void getProductById_Success() throws Exception {
         Long productId = 1L;
@@ -77,6 +84,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("GET /api/products/{id} - продукт не найден")
     void getProductById_NotFound() throws Exception {
         Long productId = 999L;
@@ -88,6 +96,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("POST /api/products - пустое тело запроса")
     void createProduct_EmptyBody() throws Exception {
         when(productService.createProduct(""))
@@ -100,6 +109,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("PUT /api/products/{id} - успешное полное обновление")
     void updateProduct_FullUpdate() throws Exception {
         Long productId = 1L;
@@ -123,6 +133,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("PUT /api/products/{id} - обновление без параметров")
     void updateProduct_NoParameters() throws Exception {
         Long productId = 1L;
@@ -137,6 +148,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("PUT /api/products/{id} - проверка параметров с разными типами")
     void updateProduct_DifferentParameterTypes() throws Exception {
         Long productId = 1L;
@@ -155,6 +167,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("DELETE /api/products/{id} - успешное удаление")
     void deleteProduct_Success() throws Exception {
         Long productId = 1L;
@@ -164,6 +177,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("DELETE /api/products/{id} - продукт не найден")
     void deleteProduct_NotFound() throws Exception {
         Long productId = 999L;
@@ -176,6 +190,7 @@ class ProductControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test-admin", roles = "ADMIN")
     @DisplayName("Тестирование snake_case vs camelCase в параметрах")
     void testParameterNaming() throws Exception {
         Long productId = 1L;
