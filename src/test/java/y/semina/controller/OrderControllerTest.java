@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import y.semina.config.SecurityConfig;
 import y.semina.service.OrderService;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -17,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OrderController.class)
+@Import(SecurityConfig.class)
 class OrderControllerTest {
 
     @Autowired
@@ -26,6 +30,7 @@ class OrderControllerTest {
     private OrderService orderService;
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("POST /api/orders - некорректный JSON")
     void createOrder_InvalidJson() throws Exception {
         String invalidJson = "{ invalid json syntax }";
@@ -40,6 +45,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("GET /api/orders/{id} - успешное получение заказа")
     void getOrderById_Success() throws Exception {
         Long orderId = 1L;
@@ -62,6 +68,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("GET /api/orders/{id} - заказ не найден")
     void getOrderById_NotFound() throws Exception {
         Long orderId = 999L;
@@ -73,6 +80,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("Тестирование snake_case в запросах")
     void testSnakeCaseInRequests() throws Exception {
         String snakeCaseJson = """
@@ -93,6 +101,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("Тестирование camelCase в запросах (должен fail если настроен snake_case)")
     void testCamelCaseInRequests() throws Exception {
         String camelCaseJson = """
@@ -113,6 +122,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test", roles = "USER")
     @DisplayName("Проверка валидации JSON структуры")
     void testJsonStructureValidation() throws Exception {
         String invalidJson = """
