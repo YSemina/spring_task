@@ -28,4 +28,10 @@ public class CustomerServiceImpl implements CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException("Покупателя с id " + id + " не существует."));
     }
 
+    @Override
+    public Customer findCustomerByUsername(String username) {
+        return customerRepository.findByUserUsername(username)
+                .orElseThrow(()->new CustomerNotFoundException("Покупателя с username " + username + " не существует."));
+    }
+
 }

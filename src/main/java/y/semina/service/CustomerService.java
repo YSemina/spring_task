@@ -7,6 +7,8 @@ public interface CustomerService {
 
     CustomerResponseDto findCustomerById (Long id);
 
-    public Customer getCustomerById(Long id);
+    Customer getCustomerById(Long id);
+
+    Customer findCustomerByUsername(String username);
 
 }

@@ -36,3 +36,13 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### SSL Certificates ###
+*.p12
+*.jks
+*.keystore
+src/main/resources/keystore.p12
+
+### Logs ###
+logs/
+*.log
