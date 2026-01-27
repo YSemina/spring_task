@@ -21,17 +21,31 @@ VALUES ('Ноутбук Lenovo', '15.6" экран, 16GB RAM, 512GB SSD', 54999.
        ('Кроссовки Nike', 'Air Max 270, черные', 12999.00, 12),
        ('Куртка зимняя', 'Пуховая, с капюшоном', 18999.00, 8);
 
-INSERT INTO customers (first_name, last_name, email, contact_number)
-VALUES ('Иван', 'Иванов', 'ivan.ivanov@mail.ru', 79101234567),
-       ('Мария', 'Петрова', 'maria.petrova@gmail.com', 79207654321),
-       ('Алексей', 'Сидоров', 'alex.sidorov@yandex.ru', 79011223344),
-       ('Екатерина', 'Смирнова', 'ekaterina.smirnova@mail.ru', 79152345678),
-       ('Дмитрий', 'Кузнецов', 'dmitry.kuznetsov@gmail.com', 79253456789),
-       ('Ольга', 'Васильева', 'olga.vasileva@yandex.ru', 79098765432),
-       ('Сергей', 'Попов', 'sergey.popov@mail.ru', 79161112233),
-       ('Анна', 'Новикова', 'anna.novikova@gmail.com', 79272223344),
-       ('Павел', 'Федоров', 'pavel.fedorov@yandex.ru', 79083334455),
-       ('Наталья', 'Морозова', 'natalia.morozova@mail.ru', 79194445566);
+INSERT INTO users (username, password, role, is_account_non_locked, failed_attempt)
+VALUES ('ivan.ivanov', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('maria.petrova', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('alex.sidorov', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('ekaterina.smirnova', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('dmitry.kuznetsov', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('olga.vasileva', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('sergey.popov', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('anna.novikova', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('pavel.fedorov', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('natalia.morozova', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', TRUE, 0),
+       ('moderator', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'MODERATOR', TRUE, 0),
+       ('admin', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'SUPER_ADMIN', TRUE, 0);
+
+INSERT INTO customers (first_name, last_name, email, contact_number, username)
+VALUES ('Иван', 'Иванов', 'ivan.ivanov@mail.ru', 79101234567, 'ivan.ivanov'),
+       ('Мария', 'Петрова', 'maria.petrova@gmail.com', 79207654321, 'maria.petrova'),
+       ('Алексей', 'Сидоров', 'alex.sidorov@yandex.ru', 79011223344, 'alex.sidorov'),
+       ('Екатерина', 'Смирнова', 'ekaterina.smirnova@mail.ru', 79152345678, 'ekaterina.smirnova'),
+       ('Дмитрий', 'Кузнецов', 'dmitry.kuznetsov@gmail.com', 79253456789, 'dmitry.kuznetsov'),
+       ('Ольга', 'Васильева', 'olga.vasileva@yandex.ru', 79098765432, 'olga.vasileva'),
+       ('Сергей', 'Попов', 'sergey.popov@mail.ru', 79161112233, 'sergey.popov'),
+       ('Анна', 'Новикова', 'anna.novikova@gmail.com', 79272223344, 'anna.novikova'),
+       ('Павел', 'Федоров', 'pavel.fedorov@yandex.ru', 79083334455, 'pavel.fedorov'),
+       ('Наталья', 'Морозова', 'natalia.morozova@mail.ru', 79194445566, 'natalia.morozova');
 
 INSERT INTO orders (customer_id, order_date, shipping_address, total_price, order_status)
 VALUES
